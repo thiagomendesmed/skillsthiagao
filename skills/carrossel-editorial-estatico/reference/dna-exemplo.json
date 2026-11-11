@@ -1,0 +1,20 @@
+{
+  "title": "Revive Clinic — Brandbook 2022",
+  "vibe": "preto suave dominante com branco puro, muito respiro, grid de linhas finas cinza (1px) dividindo a página, numeração grande em traço fino, formas orgânicas fluidas e curvas contínuas que sugerem moléculas e movimento, acentos pontuais em verde-acinzentado suave e azul-acinzentado suave, sem gradientes chamativos, sem cores saturadas",
+  "summary": "Identidade de clínica de saúde integrativa e medicina de precisão: fundo #1C1C1A, tipografia branca geométrica com tracking largo, linhas finas de grid, curvas orgânicas tipo molécula, cores auxiliares soft green #C6D3C8 e soft blue #8AACB1 usadas com parcimônia.",
+  "ai_analysis": "Hierarquia por peso e espaçamento tipográfico, não por cor. Preto transmite autoridade e exclusividade; branco, limpeza e segurança. Cores auxiliares só em detalhes (botão, fio, forma orgânica). Composição editorial, assimétrica, com divisões por linhas finas.",
+  "palette": {
+    "fundo": "#1c1c1a",
+    "texto": "#ffffff",
+    "primaria": "#000000",
+    "acento": "#8aacb1",
+    "acento_suave": "#c6d3c8",
+    "botao": "#ffffff"
+  },
+  "typography": {
+    "headlineStyle": "sans geométrica (família Gotham): títulos em Gotham Bold ou Light, caixa alta com espaçamento entre letras bem aberto (tracking largo), estilo assinatura minimalista",
+    "bodyStyle": "Gotham Book / Light, corpo pequeno, entrelinha folgada, branco sobre preto suave",
+    "mood": "elegante, autoritário, sofisticado, científico"
+  },
+  "savedAt": "2026-10-28T23:59:32.288Z"
+}

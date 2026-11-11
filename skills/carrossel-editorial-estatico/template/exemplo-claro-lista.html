@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<title>Farmacogenética: 6 fármacos que dependem do gene</title>
+<style>
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-400.woff2') format('woff2'); font-weight: 400; }
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-500.woff2') format('woff2'); font-weight: 500; }
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-700.woff2') format('woff2'); font-weight: 700; }
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-800.woff2') format('woff2'); font-weight: 800; }
+
+  :root {
+    --preto: #1C1C1A;
+    --branco: #FFFFFF;
+    --off: #F4F5F3;
+    --verde-claro: #EEF3EF;
+    --blue: #8AACB1;
+    --blue-texto: #4F7379;
+    --green: #C6D3C8;
+    --green-texto: #5F7D66;
+    --linha: rgba(28,28,26,.14);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #DDD; }
+  body { width: 8640px; height: 1350px; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .strip { display: flex; width: 8640px; height: 1350px; gap: 0; }
+  .slide {
+    position: relative; flex: 0 0 1080px; width: 1080px; height: 1350px; overflow: hidden;
+    background: var(--branco); color: var(--preto); display: flex; flex-direction: column;
+    padding: 0 96px;
+  }
+  .slide.off { background: var(--off); }
+  .slide.verde { background: var(--verde-claro); }
+
+  /* grid de linhas finas */
+  .grid-h { position: absolute; left: 0; right: 0; top: 176px; height: 1px; background: var(--linha); }
+  .grid-v { position: absolute; top: 0; bottom: 0; left: 96px; width: 1px; background: var(--linha); }
+  .grid-f { position: absolute; left: 0; right: 0; bottom: 150px; height: 1px; background: var(--linha); }
+
+  /* topo */
+  .topo { position: relative; height: 176px; display: flex; align-items: center; justify-content: space-between; padding-left: 32px; z-index: 3; }
+  .marca { display: flex; align-items: center; gap: 20px; }
+  .marca img { height: 46px; }
+  .marca span { font-size: 19px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; }
+  .pag { font-size: 20px; font-weight: 500; letter-spacing: .2em; opacity: .75; }
+
+  /* rodapé */
+  .rodape { position: absolute; left: 96px; right: 96px; bottom: 0; height: 150px; display: flex; align-items: center; justify-content: space-between; padding-left: 32px; z-index: 3; }
+  .rodape .k { font-size: 18px; font-weight: 500; letter-spacing: .3em; color: var(--blue-texto); }
+  .rodape .arr { font-size: 18px; font-weight: 500; letter-spacing: .3em; opacity: .7; }
+
+  /* corpo */
+  .corpo { position: relative; flex: 1; padding: 56px 0 0 32px; z-index: 2; }
+  .num { font-size: 170px; font-weight: 400; line-height: .9; color: transparent; -webkit-text-stroke: 1.5px rgba(28,28,26,.55); letter-spacing: -.02em; }
+  .tag { display: inline-block; font-size: 19px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--blue-texto); border: 1px solid var(--blue); border-radius: 999px; padding: 12px 24px; margin: 36px 0 30px; }
+  .gene { font-size: 26px; font-weight: 700; letter-spacing: .3em; color: var(--green-texto); margin-bottom: 18px; }
+  h1 { font-size: 84px; font-weight: 800; line-height: 1.02; letter-spacing: -.025em; }
+  h2 { font-size: 66px; font-weight: 800; line-height: 1.05; letter-spacing: -.02em; max-width: 860px; }
+  p { font-size: 31px; font-weight: 400; line-height: 1.45; color: rgba(28,28,26,.86); max-width: 850px; margin-top: 30px; }
+  p b { font-weight: 700; color: var(--preto); }
+  .analogia { margin-top: 38px; max-width: 840px; border-left: 3px solid var(--green); padding: 8px 0 8px 32px; }
+  .analogia small { display: block; font-size: 18px; font-weight: 500; letter-spacing: .3em; color: var(--green-texto); margin-bottom: 12px; }
+  .analogia div { font-size: 32px; font-weight: 500; line-height: 1.38; }
+  .fonte { position: absolute; left: 128px; right: 96px; bottom: 172px; font-size: 17px; color: rgba(28,28,26,.58); letter-spacing: .02em; z-index: 3; }
+
+  /* curva orgânica */
+  .curva { position: absolute; z-index: 1; pointer-events: none; }
+
+  /* slide 1 — capa */
+  .s1 .codigo { position: absolute; left: 128px; top: 210px; font-size: 78px; font-weight: 400; line-height: 1.12; letter-spacing: .01em; color: rgba(28,28,26,.05); white-space: nowrap; z-index: 1; }
+  .s1 .luz { position: absolute; right: -170px; bottom: 120px; width: 840px; height: 1120px; background: radial-gradient(closest-side, rgba(138,172,177,.38), rgba(138,172,177,0)); z-index: 1; }
+  .s1 .foto { position: absolute; right: 40px; bottom: 150px; height: 1030px; z-index: 2; filter: grayscale(1) contrast(1.05); }
+  .s1 .corpo { padding-top: 175px; max-width: 632px; }
+  .s1 .kick { display: inline-block; font-size: 20px; font-weight: 700; letter-spacing: .3em; color: var(--preto); background: var(--blue); padding: 14px 26px; border-radius: 999px; margin-bottom: 40px; }
+  .s1 h1 { font-size: 76px; max-width: 600px; }
+  .s1 p { max-width: 520px; font-size: 33px; margin-top: 40px; }
+
+  /* slide 8 — CTA */
+  .s8 .livro { position: absolute; right: 24px; top: 250px; width: 420px; z-index: 1; filter: brightness(1.035); }
+  .s8 .corpo { max-width: 540px; padding-top: 80px; }
+  .s8 h2 { font-size: 72px; }
+  .s8 p { font-size: 30px; max-width: 470px; }
+  .s8 .rodape span { white-space: nowrap; }
+  .s8 .rodape .arr { font-size: 15px; letter-spacing: .2em; }
+  .s8 .rodape .k { font-size: 15px; letter-spacing: .2em; }
+  .s8 .tag { color: var(--preto); border-color: var(--preto); margin-top: 0; }
+  .s8 .autor { position: absolute; left: 128px; bottom: 360px; display: flex; align-items: center; gap: 22px; z-index: 3; }
+  .s8 .autor .av { width: 104px; height: 104px; border-radius: 50%; background: url('images/expert-limpa.jpg') no-repeat; background-size: 437px auto; background-position: -188px -160px; filter: grayscale(1); }
+  .s8 .autor b { display: block; font-size: 26px; font-weight: 700; }
+  .s8 .autor span { font-size: 22px; opacity: .65; }
+  .s8 .cta { position: absolute; left: 128px; bottom: 210px; display: inline-flex; align-items: center; gap: 18px; background: var(--preto); color: var(--branco); font-size: 22px; font-weight: 700; letter-spacing: .24em; padding: 28px 44px; z-index: 3; }
+  .s8 .rodape .k { color: var(--preto); opacity: .7; }
+</style>
+</head>
+<body>
+<div class="strip">
+
+  <!-- 1 — CAPA -->
+  <section class="slide s1">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="codigo">CYP2C9VKORC1SLCO1B1<br>HLA-B5701DPYDCYP2D6<br>HLA-B1502CYP2C19TPMT<br>CYP2C9VKORC1SLCO1B1<br>HLA-B5701DPYDCYP2D6<br>HLA-B1502CYP2C19TPMT<br>CYP2C9VKORC1SLCO1B1<br>HLA-B5701DPYDCYP2D6</div>
+    <div class="luz"></div><img class="foto" src="images/expert-recorte.png" alt="Dr. Thiago Alcântara">
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">01 / 08</div></div>
+    <div class="corpo">
+      <div class="kick">EXCLUSIVO PARA MÉDICOS</div>
+      <h1>6 fármacos do dia a dia em que o gene muda a conduta</h1>
+      <p>Farmacogenética que a faculdade não ensinou.</p>
+    </div>
+    <div class="rodape"><span class="k">FARMACOGENÉTICA</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 2 — CONTEXTO -->
+  <section class="slide off">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <svg class="curva" style="right:-210px; top:170px" width="420" height="420" viewBox="0 0 700 700"><path d="M120 360 C 90 160, 360 60, 520 170 S 650 520, 430 590 S 150 560, 120 360 Z" fill="none" stroke="rgba(28,28,26,.18)" stroke-width="3"></path></svg>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">02 / 08</div></div>
+    <div class="corpo">
+      <div class="num">00</div>
+      <div class="tag">Antes dos fármacos</div>
+      <h2>Mesma dose, pacientes diferentes.</h2>
+      <p>Variantes em enzimas como as do citocromo P450 definem fenótipos: metabolizador <b>lento, intermediário, normal ou ultrarrápido</b>. Transportadores mudam quanto fármaco chega ao tecido. E alelos <b>HLA</b> podem disparar reações imunes graves.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>A receita é a mesma. O que muda é a cozinha de cada paciente.</div></div>
+    </div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 3 — VARFARINA -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">03 / 08</div></div>
+    <div class="corpo">
+      <div class="num">01</div>
+      <div class="tag">Varfarina</div>
+      <div class="gene">CYP2C9 · VKORC1</div>
+      <h2>A dose que o INR demora a revelar.</h2>
+      <p>O CYP2C9 metaboliza a S-varfarina; o VKORC1 codifica o alvo do fármaco. Variantes nos dois genes ajudam a explicar por que a dose necessária varia tanto — e a bula da FDA traz <b>faixas de dose por genótipo</b>.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>O VKORC1 é o tamanho do alvo; o CYP2C9, a velocidade da saída.</div></div>
+    </div>
+    <div class="fonte">CPIC — varfarina: Johnson JA et al. Clin Pharmacol Ther. 2017 · cpicpgx.org</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 4 — SINVASTATINA -->
+  <section class="slide verde">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">04 / 08</div></div>
+    <div class="corpo">
+      <div class="num">02</div>
+      <div class="tag">Sinvastatina</div>
+      <div class="gene">SLCO1B1</div>
+      <h2>Quando o transportador falha, o músculo paga.</h2>
+      <p>O SLCO1B1 codifica o OATP1B1, que leva a estatina para dentro do hepatócito. A variante <b>c.521T&gt;C</b> reduz essa captação, eleva o nível plasmático e se associa a <b>maior risco de miopatia</b>.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>Com a porta do fígado estreita, o fármaco sobra na circulação.</div></div>
+    </div>
+    <div class="fonte">SEARCH Collaborative Group. N Engl J Med. 2008;359:789-99 · CPIC — estatinas, 2022</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 5 — ABACAVIR -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <svg class="curva" style="right:-200px; top:170px" width="400" height="400" viewBox="0 0 640 640"><path d="M90 330 C 70 150, 300 40, 470 140 S 600 470, 380 560 S 110 520, 90 330 Z" fill="none" stroke="rgba(138,172,177,.6)" stroke-width="3"></path></svg>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">05 / 08</div></div>
+    <div class="corpo">
+      <div class="num">03</div>
+      <div class="tag">Abacavir</div>
+      <div class="gene">HLA-B*57:01</div>
+      <h2>Um teste antes da primeira dose.</h2>
+      <p>Portadores do HLA-B*57:01 têm risco muito maior de <b>reação de hipersensibilidade</b> ao abacavir. Por isso a bula da FDA recomenda a <b>triagem antes de iniciar</b> e contraindica o uso em quem é positivo.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>É perguntar sobre alergia antes de prescrever — só que a resposta está no DNA.</div></div>
+    </div>
+    <div class="fonte">Mallal S et al. (PREDICT-1). N Engl J Med. 2008;358:568-79 · CPIC — cpicpgx.org</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 6 — CARBAMAZEPINA -->
+  <section class="slide off">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">06 / 08</div></div>
+    <div class="corpo">
+      <div class="num">04</div>
+      <div class="tag">Carbamazepina</div>
+      <div class="gene">HLA-B*15:02</div>
+      <h2>A ascendência muda a pergunta.</h2>
+      <p>O HLA-B*15:02 se associa a risco aumentado de <b>Stevens-Johnson e necrólise epidérmica tóxica</b>. É mais frequente em pessoas com ascendência do Sudeste Asiático — e a bula da FDA traz alerta em destaque para testar esses pacientes antes de iniciar.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>O fármaco é o mesmo; alguns sistemas imunes o leem como invasor.</div></div>
+    </div>
+    <div class="fonte">Bula FDA (Tegretol®) — boxed warning · CPIC — carbamazepina/oxcarbazepina · cpicpgx.org</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 7 — FLUOROPIRIMIDINAS -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">07 / 08</div></div>
+    <div class="corpo">
+      <div class="num" style="font-size:150px">05–06</div>
+      <div class="tag">5-FU · Capecitabina</div>
+      <div class="gene">DPYD</div>
+      <h2>Quando falta a enzima que elimina.</h2>
+      <p>A DPD, codificada pelo DPYD, degrada a maior parte do 5-FU. Na <b>deficiência de DPD</b>, o fármaco se acumula e o risco de <b>toxicidade grave</b> — mucosite, neutropenia, diarreia — sobe. O CPIC orienta reduzir a dose ou evitar, conforme a atividade enzimática prevista.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>Sem o ralo, a pia transborda — mesmo com a torneira na dose padrão.</div></div>
+    </div>
+    <div class="fonte">CPIC — fluoropirimidinas e DPYD: Amstutz U et al. Clin Pharmacol Ther. 2018 · cpicpgx.org</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 8 — CTA -->
+  <section class="slide s8">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <img class="livro" src="images/livro.jpg" alt="Livro O Despertar do Código">
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">08 / 08</div></div>
+    <div class="corpo">
+      <div class="tag">O próximo passo</div>
+      <h2>Do laudo à prescrição.</h2>
+      <p>Farmacogenética, predisposição, metabolismo, epigenética e longevidade, traduzidos em <b>conduta clínica</b>. De médico para médico.</p>
+    </div>
+    <div class="autor"><div class="av"></div><div><b>Dr. Thiago Alcântara</b><span>+10 mil pacientes atendidos</span></div></div>
+    <div class="cta">GARANTA O SEU · LINK NA BIO</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr" style="opacity:.55">CONTEÚDO EDUCATIVO PARA PROFISSIONAIS DE SAÚDE</span></div>
+  </section>
+
+</div>
+<script>
+  // Modo export: file://.../preview.html#export=N mostra só o N-ésimo slide visível.
+  (function () {
+    var m = (location.hash || '').match(/^#export=(\d+)$/);
+    if (!m) return;
+    var n = parseInt(m[1], 10);
+    var strip = document.querySelector('.strip');
+    if (!strip) return;
+    var all = Array.prototype.slice.call(strip.children).filter(function (el) {
+      return el.classList && el.classList.contains('slide');
+    });
+    var vis = all.filter(function (s) { return getComputedStyle(s).display !== 'none'; });
+    vis.sort(function (a, b) {
+      return ((parseInt(getComputedStyle(a).order) || 0) - (parseInt(getComputedStyle(b).order) || 0));
+    });
+    var target = vis[n - 1];
+    all.forEach(function (s) { s.style.display = 'none'; });
+    if (target) {
+      target.style.display = 'flex';
+      target.style.order = '0';
+      strip.style.width = target.offsetWidth + 'px';
+      document.body.style.width = target.offsetWidth + 'px';
+    }
+  })();
+</script>
+</body></html>

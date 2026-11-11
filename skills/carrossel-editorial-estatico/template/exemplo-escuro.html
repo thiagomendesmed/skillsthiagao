@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<title>Os genes do laudo que a faculdade não ensinou</title>
+<style>
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-400.woff2') format('woff2'); font-weight: 400; }
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-500.woff2') format('woff2'); font-weight: 500; }
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-700.woff2') format('woff2'); font-weight: 700; }
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-800.woff2') format('woff2'); font-weight: 800; }
+
+  :root {
+    --preto: #1C1C1A;
+    --branco: #FFFFFF;
+    --blue: #8AACB1;
+    --green: #C6D3C8;
+    --linha: rgba(255,255,255,.14);
+    --linha-escura: rgba(28,28,26,.14);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #111; }
+  body { width: 8640px; height: 1350px; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .strip { display: flex; width: 8640px; height: 1350px; gap: 0; }
+  .slide {
+    position: relative; flex: 0 0 1080px; width: 1080px; height: 1350px; overflow: hidden;
+    background: var(--preto); color: var(--branco); display: flex; flex-direction: column;
+    padding: 0 96px;
+  }
+  .slide.claro { background: var(--branco); color: var(--preto); }
+
+  /* grid de linhas finas (brandbook) */
+  .grid-h { position: absolute; left: 0; right: 0; top: 176px; height: 1px; background: var(--linha); }
+  .grid-v { position: absolute; top: 0; bottom: 0; left: 96px; width: 1px; background: var(--linha); }
+  .grid-f { position: absolute; left: 0; right: 0; bottom: 150px; height: 1px; background: var(--linha); }
+  .claro .grid-h, .claro .grid-v, .claro .grid-f { background: var(--linha-escura); }
+
+  /* topo */
+  .topo { position: relative; height: 176px; display: flex; align-items: center; justify-content: space-between; padding-left: 32px; z-index: 3; }
+  .marca { display: flex; align-items: center; gap: 20px; }
+  .marca img { height: 46px; filter: invert(1); }
+  .claro .marca img { filter: none; }
+  .marca span { font-size: 19px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; }
+  .pag { font-size: 20px; font-weight: 400; letter-spacing: .2em; opacity: .7; }
+
+  /* rodapé */
+  .rodape { position: absolute; left: 96px; right: 96px; bottom: 0; height: 150px; display: flex; align-items: center; justify-content: space-between; padding-left: 32px; z-index: 3; }
+  .rodape .k { font-size: 18px; font-weight: 500; letter-spacing: .3em; color: var(--blue); }
+  .rodape .arr { font-size: 18px; font-weight: 500; letter-spacing: .3em; opacity: .7; }
+
+  /* corpo */
+  .corpo { position: relative; flex: 1; padding: 56px 0 0 32px; z-index: 2; }
+  .num { font-size: 170px; font-weight: 400; line-height: .9; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.55); letter-spacing: -.02em; }
+  .tag { display: inline-block; font-size: 19px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--blue); border: 1px solid var(--blue); border-radius: 999px; padding: 12px 24px; margin: 36px 0 30px; }
+  .gene { font-size: 26px; font-weight: 700; letter-spacing: .3em; color: var(--green); margin-bottom: 18px; }
+  h1 { font-size: 84px; font-weight: 800; line-height: 1.02; letter-spacing: -.025em; }
+  h2 { font-size: 70px; font-weight: 800; line-height: 1.04; letter-spacing: -.02em; max-width: 860px; }
+  p { font-size: 33px; font-weight: 400; line-height: 1.45; opacity: .86; max-width: 840px; margin-top: 34px; }
+  p b { font-weight: 700; opacity: 1; }
+  .analogia { margin-top: 44px; max-width: 840px; border-left: 2px solid var(--green); padding: 8px 0 8px 32px; }
+  .analogia small { display: block; font-size: 18px; font-weight: 500; letter-spacing: .3em; color: var(--green); margin-bottom: 12px; }
+  .analogia div { font-size: 34px; font-weight: 500; line-height: 1.38; }
+  .fonte { position: absolute; left: 128px; bottom: 172px; font-size: 17px; opacity: .45; letter-spacing: .02em; z-index: 3; }
+  .claro .fonte { opacity: .55; }
+
+  /* curva orgânica tipo molécula */
+  .curva { position: absolute; z-index: 1; pointer-events: none; }
+
+  /* slide 1 — capa */
+  .s1 .codigo { position: absolute; left: 128px; top: 210px; font-size: 78px; font-weight: 400; line-height: 1.12; letter-spacing: .01em; color: rgba(255,255,255,.07); white-space: nowrap; z-index: 1; }
+  .s1 .luz { position: absolute; right: -160px; bottom: 80px; width: 820px; height: 1100px; background: radial-gradient(closest-side, rgba(138,172,177,.32), rgba(138,172,177,0)); z-index: 1; }
+  .s1 .foto { position: absolute; right: 4px; bottom: 0; height: 1080px; z-index: 2; filter: grayscale(1) contrast(1.05); }
+  .s1 .corpo { padding-top: 230px; max-width: 640px; }
+  .s1 .kick { display: inline-block; font-size: 20px; font-weight: 700; letter-spacing: .3em; color: var(--preto); background: var(--blue); padding: 14px 26px; border-radius: 999px; margin-bottom: 44px; }
+  .s1 h1 { font-size: 80px; }
+  .s1 p { max-width: 500px; }
+
+  /* slide 7 — duas colunas */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 40px; border-top: 1px solid var(--linha); }
+  .col { padding: 40px 40px 0 0; }
+  .col + .col { padding: 40px 0 0 40px; border-left: 1px solid var(--linha); }
+  .col .gene { font-size: 22px; }
+  .col .rot { font-size: 18px; font-weight: 500; letter-spacing: .28em; opacity: .6; margin-bottom: 14px; }
+  .col h3 { font-size: 44px; font-weight: 800; line-height: 1.08; letter-spacing: -.015em; margin-bottom: 22px; }
+  .col div.t { font-size: 27px; line-height: 1.45; opacity: .86; }
+
+  /* slide 8 — CTA claro */
+  .s8 .livro { position: absolute; right: 30px; top: 230px; width: 470px; z-index: 1; filter: brightness(1.035); }
+  .s8 .corpo { max-width: 560px; padding-top: 80px; }
+  .s8 h2 { font-size: 72px; }
+  .s8 p { font-size: 30px; opacity: .8; }
+  .s8 .autor { position: absolute; left: 128px; bottom: 360px; display: flex; align-items: center; gap: 22px; z-index: 3; }
+  .s8 .autor .av { width: 104px; height: 104px; border-radius: 50%; background: url('images/expert-limpa.jpg') no-repeat; background-size: 437px auto; background-position: -188px -160px; filter: grayscale(1); }
+  .s8 .autor b { display: block; font-size: 26px; font-weight: 700; }
+  .s8 .autor span { font-size: 22px; opacity: .65; }
+  .s8 .cta { position: absolute; left: 128px; bottom: 210px; display: inline-flex; align-items: center; gap: 18px; background: var(--preto); color: var(--branco); font-size: 22px; font-weight: 700; letter-spacing: .24em; padding: 28px 44px; z-index: 3; }
+  .s8 .rodape .k { color: var(--preto); opacity: .7; }
+</style>
+</head>
+<body>
+<div class="strip">
+
+  <!-- 1 — CAPA -->
+  <section class="slide s1">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="codigo">BRCA1HER2TP53BRCA2<br>FADS2CYP1A2APOE4<br>FOXO3TOM40MTHRF<br>BRCA1HER2TP53BRCA2<br>FADS2CYP1A2APOE4<br>FOXO3TOM40MTHRF<br>BRCA1HER2TP53BRCA2<br>FADS2CYP1A2APOE4<br>FOXO3TOM40MTHRF</div>
+    <div class="luz"></div><img class="foto" src="images/expert-recorte.png" alt="Dr. Thiago Alcântara">
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">01 / 08</div></div>
+    <div class="corpo">
+      <div class="kick" style="transform: translate(-23px, -89px);">EXCLUSIVO PARA MÉDICOS</div>
+      <h1 style="transform: translate(-17px, -114px);">7 genes que podem aparecer no laudo do seu paciente</h1>
+      <p style="transform: translate(-21px, -97px);">E o que a faculdade não<br>te ensinou a fazer com eles.</p>
+    </div>
+    <div class="rodape"><span class="k">MEDICINA DE PRECISÃO</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 2 — CONTEXTO -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <svg class="curva" style="right:-330px; top:700px" width="700" height="700" viewBox="0 0 700 700"><path d="M120 360 C 90 160, 360 60, 520 170 S 650 520, 430 590 S 150 560, 120 360 Z" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2"></path></svg>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">02 / 08</div></div>
+    <div class="corpo">
+      <div class="num">00</div>
+      <div class="tag">Antes dos genes</div>
+      <h2>O paciente médio não existe.</h2>
+      <p>Protocolos e doses nascem de <b>médias populacionais</b>. Mas cada paciente metaboliza, responde e adoece do seu jeito. O laudo genético explica parte dessa diferença — e ele já está chegando ao consultório.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>A média é o mapa da cidade. O genoma é o endereço do paciente.</div></div>
+    </div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 3 — CYP2D6 -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">03 / 08</div></div>
+    <div class="corpo">
+      <div class="num">01</div>
+      <div class="tag">Farmacogenética</div>
+      <div class="gene">CYP2D6</div>
+      <h2>Mesma dose de codeína, desfechos opostos.</h2>
+      <p>A codeína é um pró-fármaco: precisa do CYP2D6 para virar morfina. No <b>metabolizador lento</b>, pouca analgesia. No <b>ultrarrápido</b>, morfina demais e risco de toxicidade.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>A enzima é uma fábrica: se para, não sai produto. Se acelera demais, o estoque transborda.</div></div>
+    </div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 4 — CYP2C19 -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <svg class="curva" style="right:-360px; top:640px" width="640" height="640" viewBox="0 0 640 640"><path d="M90 330 C 70 150, 300 40, 470 140 S 600 470, 380 560 S 110 520, 90 330 Z" fill="none" stroke="rgba(138,172,177,.28)" stroke-width="2"></path></svg>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">04 / 08</div></div>
+    <div class="corpo">
+      <div class="num">02</div>
+      <div class="tag">Farmacogenética</div>
+      <div class="gene">CYP2C19</div>
+      <h2>O antiagregante que não liga.</h2>
+      <p>O clopidogrel também depende de ativação hepática, via CYP2C19. Em <b>metabolizadores lentos</b>, a ativação é reduzida e o efeito antiplaquetário pode ser menor — um alerta que consta na bula aprovada pela FDA.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>O remédio está certo. É a ignição que falha.</div></div>
+    </div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 5 — CYP1A2 -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">05 / 08</div></div>
+    <div class="corpo">
+      <div class="num">03</div>
+      <div class="tag">Nutrigenética</div>
+      <div class="gene">CYP1A2</div>
+      <h2>O café não é igual para todos.</h2>
+      <p>Variantes do CYP1A2 separam metabolizadores <b>rápidos</b> e <b>lentos</b> de cafeína. Em um estudo caso-controle, o maior consumo de café se associou a mais risco de infarto apenas nos metabolizadores lentos.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>Mesma xícara: em uns a cafeína vai embora rápido; em outros, fica.</div></div>
+    </div>
+    <div class="fonte">Cornelis MC et al. JAMA. 2006;295(10):1135-41.</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 6 — APOE -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <svg class="curva" style="right:-330px; top:760px" width="680" height="680" viewBox="0 0 680 680"><path d="M110 350 C 80 160, 350 50, 510 160 S 640 500, 420 580 S 140 550, 110 350 Z" fill="none" stroke="rgba(198,211,200,.22)" stroke-width="2"></path></svg>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">06 / 08</div></div>
+    <div class="corpo">
+      <div class="num">04</div>
+      <div class="tag">Neurologia</div>
+      <div class="gene">APOE ε4</div>
+      <h2>Risco não é sentença.</h2>
+      <p>O alelo ε4 do APOE é o principal fator de risco genético conhecido para Alzheimer de início tardio. Mas ele <b>aumenta a probabilidade</b>, não define o diagnóstico. Mal interpretado, gera angústia; bem interpretado, orienta prevenção.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>É previsão do tempo, não destino.</div></div>
+    </div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 7 — BRCA/TP53 × MTHFR -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">07 / 08</div></div>
+    <div class="corpo">
+      <div class="num" style="font-size:130px">05–07</div>
+      <div class="tag" style="margin:28px 0 22px">Oncologia × Hype</div>
+      <h2>Nem todo gene pesa igual.</h2>
+      <div class="cols">
+        <div class="col">
+          <div class="rot">ALTA PENETRÂNCIA</div>
+          <div class="gene">BRCA1 · BRCA2 · TP53</div>
+          <h3>Mudam a conduta.</h3>
+          <div class="t">Variantes patogênicas pedem rastreamento diferenciado e aconselhamento genético.</div>
+        </div>
+        <div class="col">
+          <div class="rot">SUPERINTERPRETADO</div>
+          <div class="gene">MTHFR</div>
+          <h3>Muito barulho, pouca conduta.</h3>
+          <div class="t">O ACMG não recomenda testar MTHFR para investigar trombofilia. Saber o que <b>não</b> fazer também é precisão.</div>
+        </div>
+      </div>
+    </div>
+    <div class="fonte">Hickey SE et al. ACMG Practice Guideline. Genet Med. 2013;15(2):153-6.</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 8 — CTA -->
+  <section class="slide claro s8">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <img class="livro" src="images/livro.jpg" alt="Livro O Despertar do Código">
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">08 / 08</div></div>
+    <div class="corpo">
+      <div class="tag" style="color:#1C1C1A;border-color:#1C1C1A;margin-top:0">O próximo passo</div>
+      <h2>Isso é só o começo do código.</h2>
+      <p>Predisposição, farmacogenética, metabolismo, saúde mental, epigenética e longevidade, traduzidos em <b>conduta clínica</b>. De médico para médico.</p>
+    </div>
+    <div class="autor"><div class="av"></div><div><b>Dr. Thiago Alcântara</b><span>+10 mil pacientes atendidos</span></div></div>
+    <div class="cta">GARANTA O SEU · LINK NA BIO</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr" style="opacity:.55">CONTEÚDO EDUCATIVO PARA PROFISSIONAIS DE SAÚDE</span></div>
+  </section>
+
+</div>
+<script>
+  // Modo export: file://.../preview.html#export=N mostra só o N-ésimo slide visível.
+  (function () {
+    var m = (location.hash || '').match(/^#export=(\d+)$/);
+    if (!m) return;
+    var n = parseInt(m[1], 10);
+    var strip = document.querySelector('.strip');
+    if (!strip) return;
+    var all = Array.prototype.slice.call(strip.children).filter(function (el) {
+      return el.classList && el.classList.contains('slide');
+    });
+    var vis = all.filter(function (s) { return getComputedStyle(s).display !== 'none'; });
+    vis.sort(function (a, b) {
+      return ((parseInt(getComputedStyle(a).order) || 0) - (parseInt(getComputedStyle(b).order) || 0));
+    });
+    var target = vis[n - 1];
+    all.forEach(function (s) { s.style.display = 'none'; });
+    if (target) {
+      target.style.display = 'flex';
+      target.style.order = '0';
+      strip.style.width = target.offsetWidth + 'px';
+      document.body.style.width = target.offsetWidth + 'px';
+    }
+  })();
+</script>
+
+
+</body></html>

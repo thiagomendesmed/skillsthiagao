@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<title>Como ler um laudo genético em 6 passos</title>
+<style>
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-400.woff2') format('woff2'); font-weight: 400; }
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-500.woff2') format('woff2'); font-weight: 500; }
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-700.woff2') format('woff2'); font-weight: 700; }
+  @font-face { font-family: 'Inter'; src: url('fonts/inter-800.woff2') format('woff2'); font-weight: 800; }
+
+  :root {
+    --preto: #1C1C1A;
+    --branco: #FFFFFF;
+    --off: #F4F5F3;
+    --verdeclaro: #EEF3EF;
+    --blue: #8AACB1;
+    --green: #C6D3C8;
+    --blue-txt: #4C767C;   /* soft blue escurecido p/ texto pequeno sobre branco */
+    --linha: rgba(28,28,26,.14);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e9e9e7; }
+  body { width: 8640px; height: 1350px; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .strip { display: flex; width: 8640px; height: 1350px; gap: 0; }
+  .slide {
+    position: relative; flex: 0 0 1080px; width: 1080px; height: 1350px; overflow: hidden;
+    background: var(--branco); color: var(--preto); display: flex; flex-direction: column;
+    padding: 0 96px;
+  }
+  .slide.off { background: var(--off); }
+  .slide.verde { background: var(--verdeclaro); }
+
+  /* grid de linhas finas */
+  .grid-h { position: absolute; left: 0; right: 0; top: 176px; height: 1px; background: var(--linha); }
+  .grid-v { position: absolute; top: 0; bottom: 0; left: 96px; width: 1px; background: var(--linha); }
+  .grid-f { position: absolute; left: 0; right: 0; bottom: 150px; height: 1px; background: var(--linha); }
+
+  /* topo */
+  .topo { position: relative; height: 176px; display: flex; align-items: center; justify-content: space-between; padding-left: 32px; z-index: 3; }
+  .marca { display: flex; align-items: center; gap: 20px; }
+  .marca img { height: 46px; }
+  .marca span { font-size: 19px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; }
+  .pag { font-size: 20px; font-weight: 500; letter-spacing: .2em; opacity: .75; }
+
+  /* rodapé */
+  .rodape { position: absolute; left: 96px; right: 96px; bottom: 0; height: 150px; display: flex; align-items: center; justify-content: space-between; padding-left: 32px; z-index: 4; }
+  .rodape .k { font-size: 18px; font-weight: 500; letter-spacing: .3em; color: var(--blue-txt); }
+  .rodape .arr { font-size: 18px; font-weight: 500; letter-spacing: .3em; opacity: .7; }
+
+  /* corpo */
+  .corpo { position: relative; flex: 1; padding: 56px 0 0 32px; z-index: 2; }
+  .num { font-size: 170px; font-weight: 400; line-height: .9; color: transparent; -webkit-text-stroke: 1.5px rgba(28,28,26,.6); letter-spacing: -.02em; }
+  .tag { display: inline-block; font-size: 19px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--blue-txt); border: 1px solid var(--blue); border-radius: 999px; padding: 12px 24px; margin: 36px 0 30px; }
+  .rot { font-size: 22px; font-weight: 700; letter-spacing: .3em; color: var(--blue-txt); margin-bottom: 18px; text-transform: uppercase; }
+  h1 { font-size: 84px; font-weight: 800; line-height: 1.02; letter-spacing: -.025em; }
+  h2 { font-size: 70px; font-weight: 800; line-height: 1.04; letter-spacing: -.02em; max-width: 860px; }
+  p { font-size: 33px; font-weight: 400; line-height: 1.45; opacity: .86; max-width: 840px; margin-top: 34px; }
+  p b { font-weight: 700; opacity: 1; }
+  .analogia { margin-top: 44px; max-width: 840px; border-left: 3px solid var(--blue); padding: 8px 0 8px 32px; }
+  .analogia small { display: block; font-size: 18px; font-weight: 700; letter-spacing: .3em; color: var(--blue-txt); margin-bottom: 12px; }
+  .analogia div { font-size: 34px; font-weight: 500; line-height: 1.38; }
+  .fonte { position: absolute; left: 128px; bottom: 172px; font-size: 17px; opacity: .6; letter-spacing: .02em; z-index: 3; }
+
+  .curva { position: absolute; z-index: 1; pointer-events: none; }
+
+  /* slide 1 — capa */
+  .s1 .codigo { position: absolute; left: 128px; top: 210px; font-size: 78px; font-weight: 400; line-height: 1.12; letter-spacing: .01em; color: rgba(28,28,26,.055); white-space: nowrap; z-index: 1; }
+  .s1 .luz { position: absolute; right: -170px; bottom: 60px; width: 860px; height: 1120px; background: radial-gradient(closest-side, rgba(138,172,177,.42), rgba(138,172,177,0)); z-index: 1; }
+  .s1 .foto { position: absolute; right: 4px; bottom: 0; height: 1080px; z-index: 2; filter: grayscale(1) contrast(1.05); }
+  .s1 .corpo { padding-top: 150px; max-width: 620px; }
+  .s1 .kick { display: inline-block; font-size: 20px; font-weight: 700; letter-spacing: .3em; color: var(--preto); background: var(--blue); padding: 14px 26px; border-radius: 999px; margin-bottom: 44px; }
+  .s1 h1 { font-size: 82px; max-width: 580px; }
+  .s1 p { max-width: 520px; }
+  .s1 .rodape .arr { opacity: 1; background: var(--branco); padding: 10px 18px; border-radius: 999px; }
+
+  /* ACMG */
+  .acmg { margin-top: 40px; max-width: 860px; border-top: 1px solid var(--linha); }
+  .acmg .l { display: flex; align-items: center; gap: 26px; padding: 22px 0; border-bottom: 1px solid var(--linha); }
+  .acmg .b { width: 14px; height: 40px; border-radius: 2px; flex: 0 0 14px; }
+  .acmg .n { font-size: 34px; font-weight: 700; flex: 1; }
+  .acmg .s { font-size: 18px; font-weight: 700; letter-spacing: .24em; color: var(--blue-txt); }
+
+  /* colunas */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 40px; border-top: 1px solid var(--linha); }
+  .col { padding: 38px 40px 0 0; }
+  .col + .col { padding: 38px 0 0 40px; border-left: 1px solid var(--linha); }
+  .col .rot { font-size: 17px; letter-spacing: .26em; margin-bottom: 14px; }
+  .col .g { font-size: 22px; font-weight: 700; letter-spacing: .2em; margin-bottom: 16px; }
+  .col h3 { font-size: 42px; font-weight: 800; line-height: 1.08; letter-spacing: -.015em; margin-bottom: 20px; }
+  .col div.t { font-size: 27px; line-height: 1.45; opacity: .86; }
+
+  /* passos */
+  .passos { margin-top: 38px; max-width: 860px; border-top: 1px solid var(--linha); }
+  .passos .l { display: flex; gap: 28px; padding: 24px 0; border-bottom: 1px solid var(--linha); }
+  .passos .i { font-size: 20px; font-weight: 700; letter-spacing: .2em; color: var(--blue-txt); padding-top: 8px; flex: 0 0 52px; }
+  .passos .x { font-size: 30px; line-height: 1.4; }
+  .passos .x b { font-weight: 700; }
+
+  /* slide 8 — CTA */
+  .s8 .livro { position: absolute; right: 30px; top: 230px; width: 470px; z-index: 1; filter: brightness(1.035); }
+  .s8 .corpo { max-width: 560px; padding-top: 80px; }
+  .s8 h2 { font-size: 72px; }
+  .s8 p { font-size: 30px; opacity: .8; max-width: 480px; }
+  .s8 .rodape span { white-space: nowrap; }
+  .s8 .rodape .k, .s8 .rodape .arr { font-size: 14px; letter-spacing: .18em; }
+  .s8 .autor { position: absolute; left: 128px; bottom: 360px; display: flex; align-items: center; gap: 22px; z-index: 3; }
+  .s8 .autor .av { width: 104px; height: 104px; border-radius: 50%; background: url('images/expert-limpa.jpg') no-repeat; background-size: 437px auto; background-position: -188px -160px; filter: grayscale(1); }
+  .s8 .autor b { display: block; font-size: 26px; font-weight: 700; }
+  .s8 .autor span { font-size: 22px; opacity: .65; }
+  .s8 .cta { position: absolute; left: 128px; bottom: 210px; display: inline-flex; align-items: center; gap: 18px; background: var(--preto); color: var(--branco); font-size: 22px; font-weight: 700; letter-spacing: .24em; padding: 28px 44px; z-index: 3; }
+  .s8 .rodape .k { color: var(--preto); opacity: .7; }
+</style>
+</head>
+<body>
+<div class="strip">
+
+  <!-- 1 — CAPA -->
+  <section class="slide s1">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="codigo">c.68_69delATGCGTA<br>ACMGVUSBRCA1TP53<br>p.Glu23fsAPOE4CFTR<br>c.68_69delATGCGTA<br>ACMGVUSBRCA1TP53<br>p.Glu23fsAPOE4CFTR<br>c.68_69delATGCGTA<br>ACMGVUSBRCA1TP53<br>p.Glu23fsAPOE4CFTR</div>
+    <div class="luz"></div><img class="foto" src="images/expert-recorte.png" alt="Dr. Thiago Alcântara">
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">01 / 08</div></div>
+    <div class="corpo">
+      <div class="kick">EXCLUSIVO PARA MÉDICOS</div>
+      <h1>Como ler um laudo genético em 6 passos</h1>
+      <p>O roteiro que a faculdade<br>não ensinou.</p>
+    </div>
+    <div class="rodape"><span class="k">MEDICINA DE PRECISÃO</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 2 — PASSO 1 -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <svg class="curva" style="right:-300px; top:150px" width="600" height="600" viewBox="0 0 700 700"><path d="M120 360 C 90 160, 360 60, 520 170 S 650 520, 430 590 S 150 560, 120 360 Z" fill="none" stroke="rgba(138,172,177,.55)" stroke-width="2"></path></svg>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">02 / 08</div></div>
+    <div class="corpo">
+      <div class="num">01</div>
+      <div class="tag">Passo 1</div>
+      <div class="rot">Tipo de teste</div>
+      <h2>Que teste é este?</h2>
+      <p>Painel clínico, exoma ou teste direto ao consumidor (DTC) têm escopo e finalidade diferentes. Achado de DTC deve ser <b>confirmado em laboratório clínico</b> antes de virar conduta.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>O painel é uma lupa sobre genes escolhidos. O exoma é o mapa de todas as regiões codificantes.</div></div>
+    </div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 3 — PASSO 2 -->
+  <section class="slide off">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">03 / 08</div></div>
+    <div class="corpo">
+      <div class="num">02</div>
+      <div class="tag">Passo 2</div>
+      <div class="rot">BRCA1 c.68_69del · p.(Glu23fs)</div>
+      <h2>Gene, variante e zigosidade.</h2>
+      <p>Na nomenclatura HGVS, <b>c.</b> descreve a alteração no DNA codificante e <b>p.</b>, o efeito previsto na proteína. Depois, confira a zigosidade (heterozigoto ou homozigoto) e o <b>padrão de herança</b> do gene.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>O gene é a rua, o c. é o número da casa e o p. conta o que mudou lá dentro.</div></div>
+    </div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 4 — PASSO 3 -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">04 / 08</div></div>
+    <div class="corpo">
+      <div class="num">03</div>
+      <div class="tag">Passo 3</div>
+      <h2>Cinco categorias, não duas.</h2>
+      <div class="acmg">
+        <div class="l"><span class="b" style="background:#1C1C1A"></span><span class="n">Patogênica</span><span class="s">P</span></div>
+        <div class="l"><span class="b" style="background:#4C767C"></span><span class="n">Provavelmente patogênica</span><span class="s">LP</span></div>
+        <div class="l"><span class="b" style="background:#8AACB1"></span><span class="n">Significado incerto</span><span class="s">VUS</span></div>
+        <div class="l"><span class="b" style="background:#C6D3C8"></span><span class="n">Provavelmente benigna</span><span class="s">LB</span></div>
+        <div class="l"><span class="b" style="background:#fff;border:1.5px solid #8AACB1"></span><span class="n">Benigna</span><span class="s">B</span></div>
+      </div>
+    </div>
+    <div class="fonte">Classificação ACMG/AMP · Richards S et al. Genet Med. 2015;17(5):405-24.</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 5 — PASSO 4 -->
+  <section class="slide verde">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <svg class="curva" style="right:-430px; top:180px" width="640" height="640" viewBox="0 0 640 640"><path d="M90 330 C 70 150, 300 40, 470 140 S 600 470, 380 560 S 110 520, 90 330 Z" fill="none" stroke="rgba(76,118,124,.35)" stroke-width="2"></path></svg>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">05 / 08</div></div>
+    <div class="corpo">
+      <div class="num">04</div>
+      <div class="tag">Passo 4</div>
+      <div class="rot">VUS</div>
+      <h2>VUS não é resultado positivo.</h2>
+      <p>Variante de significado incerto quer dizer <b>evidência insuficiente</b> para classificar. Ela não deve orientar conduta clínica e pode ser reclassificada à medida que surgem novos dados.</p>
+      <div class="analogia"><small>ANALOGIA</small><div>É um suspeito sem provas: não se condena nem se absolve antes de a investigação avançar.</div></div>
+    </div>
+    <div class="fonte">Richards S et al. Genet Med. 2015;17(5):405-24.</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 6 — PASSO 5 -->
+  <section class="slide">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">06 / 08</div></div>
+    <div class="corpo">
+      <div class="num">05</div>
+      <div class="tag" style="margin:30px 0 24px">Passo 5</div>
+      <h2>Risco não é diagnóstico.</h2>
+      <div class="cols">
+        <div class="col">
+          <div class="rot">Alta penetrância</div>
+          <div class="g">BRCA1 · BRCA2</div>
+          <h3>Muda a conduta.</h3>
+          <div class="t">Variante patogênica pede rastreamento diferenciado e aconselhamento genético.</div>
+        </div>
+        <div class="col">
+          <div class="rot">Variante de risco</div>
+          <div class="g">APOE ε4</div>
+          <h3>Aumenta a probabilidade.</h3>
+          <div class="t">Eleva o risco de Alzheimer de início tardio, mas não define o diagnóstico.</div>
+        </div>
+      </div>
+      <div class="analogia" style="margin-top:40px"><small>ANALOGIA</small><div>Penetrância é previsão do tempo, não destino.</div></div>
+    </div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 7 — PASSO 6 -->
+  <section class="slide off">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">07 / 08</div></div>
+    <div class="corpo">
+      <div class="num">06</div>
+      <div class="tag">Passo 6</div>
+      <h2>Da variante à conduta.</h2>
+      <div class="passos">
+        <div class="l"><span class="i">A</span><span class="x">Correlacione com a <b>história clínica e familiar</b>: o laudo não fala sozinho.</span></div>
+        <div class="l"><span class="i">B</span><span class="x">Ofereça <b>aconselhamento genético</b> ao paciente.</span></div>
+        <div class="l"><span class="i">C</span><span class="x">Quando indicada, faça <b>testagem em cascata</b> dos familiares em risco.</span></div>
+      </div>
+      <div class="analogia" style="margin-top:40px"><small>ANALOGIA</small><div>O laudo é uma peça.<br>A clínica monta o quebra-cabeça.</div></div>
+    </div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr">ARRASTE →</span></div>
+  </section>
+
+  <!-- 8 — CTA -->
+  <section class="slide s8">
+    <div class="grid-v"></div><div class="grid-h"></div><div class="grid-f"></div>
+    <img class="livro" src="images/livro.jpg" alt="Livro O Despertar do Código">
+    <div class="topo"><div class="marca"><img src="images/logo.png" alt=""><span>O Despertar do Código</span></div><div class="pag">08 / 08</div></div>
+    <div class="corpo">
+      <div class="tag" style="color:#1C1C1A;border-color:#1C1C1A;margin-top:0">O próximo passo</div>
+      <h2>Do laudo à conduta, com segurança.</h2>
+      <p>Testes genéticos, predisposição, farmacogenética e prevenção traduzidos em <b>conduta clínica</b>. De médico para médico.</p>
+    </div>
+    <div class="autor"><div class="av"></div><div><b>Dr. Thiago Alcântara</b><span>+10 mil pacientes atendidos</span></div></div>
+    <div class="cta">GARANTA O SEU · LINK NA BIO</div>
+    <div class="rodape"><span class="k">EXCLUSIVO PARA MÉDICOS</span><span class="arr" style="opacity:.55">CONTEÚDO EDUCATIVO PARA PROFISSIONAIS DE SAÚDE</span></div>
+  </section>
+
+</div>
+<script>
+  // Modo export: file://.../preview.html#export=N mostra só o N-ésimo slide visível.
+  (function () {
+    var m = (location.hash || '').match(/^#export=(\d+)$/);
+    if (!m) return;
+    var n = parseInt(m[1], 10);
+    var strip = document.querySelector('.strip');
+    if (!strip) return;
+    var all = Array.prototype.slice.call(strip.children).filter(function (el) {
+      return el.classList && el.classList.contains('slide');
+    });
+    var vis = all.filter(function (s) { return getComputedStyle(s).display !== 'none'; });
+    vis.sort(function (a, b) {
+      return ((parseInt(getComputedStyle(a).order) || 0) - (parseInt(getComputedStyle(b).order) || 0));
+    });
+    var target = vis[n - 1];
+    all.forEach(function (s) { s.style.display = 'none'; });
+    if (target) {
+      target.style.display = 'flex';
+      target.style.order = '0';
+      strip.style.width = target.offsetWidth + 'px';
+      document.body.style.width = target.offsetWidth + 'px';
+    }
+  })();
+</script>
+</body></html>
